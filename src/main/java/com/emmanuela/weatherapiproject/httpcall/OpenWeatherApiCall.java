@@ -1,5 +1,6 @@
 package com.emmanuela.weatherapiproject.httpcall;
 
+import com.emmanuela.weatherapiproject.exceptions.CityNotFoundException;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -11,10 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -24,21 +21,14 @@ import java.util.concurrent.TimeUnit;
 public class OpenWeatherApiCall {
 
     @Value("${application.http.callout.api.openweather.baseurl.apikeys}")
-    private String baseUrl;
-    private String modifiedWeatherUrl;
+    private String openWeatherApiKey;
 
     public String openWeatherApi(String city){
 
         log.info("Running webclient ....");
 
-        try{
-
-            String encodeUrl = URLEncoder.encode(city, StandardCharsets.UTF_8.name());
-            modifiedWeatherUrl = baseUrl + encodeUrl;
-        }
-        catch(UnsupportedEncodingException ex){
-            log.error("Encoding Error Encountered {}", ex.getMessage());
-        }
+        String formattedUrl = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, openWeatherApiKey);
+//        String modifiedUrl = formattedUrl;
 
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 15000)
@@ -52,12 +42,13 @@ public class OpenWeatherApiCall {
                 .build();
 
         Mono<String> responseSpec = client.get()
-                .uri(modifiedWeatherUrl)
+                .uri(formattedUrl)
                 .exchangeToMono(response -> {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         return response.bodyToMono(String.class);
                     } else if (response.statusCode().is4xxClientError()) {
-                        return Mono.just("CITY NOT FOUND");
+                        return response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new CityNotFoundException(errorBody)));
                     } else {
                         return response.createException().flatMap(Mono::error);
                     }

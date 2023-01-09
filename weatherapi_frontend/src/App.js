@@ -4,6 +4,14 @@ import './App.css';
 
 function App () {
   const [message, setMessage] = useState("");
+    const [city, setCity] = useState("");
+
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      setCity(e.target.value)
+
+  }
 
   useEffect(() => {
     fetch('/city/{city}')
@@ -14,12 +22,13 @@ function App () {
   },[])
   return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">{message}</h1>
-        </header>
+          <form>
+        <input type="text" placeholder="Enter City" value = {city}/>
+        <button onClick={onSubmit} type="submit">Find</button>
+
+          </form>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+           Hello
         </p>
       </div>
   )
