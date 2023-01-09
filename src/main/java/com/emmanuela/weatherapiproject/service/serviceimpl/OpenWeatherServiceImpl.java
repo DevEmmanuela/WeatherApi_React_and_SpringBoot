@@ -1,5 +1,6 @@
 package com.emmanuela.weatherapiproject.service.serviceimpl;
 
+import com.emmanuela.weatherapiproject.exceptions.GenericException;
 import com.emmanuela.weatherapiproject.httpcall.OpenWeatherApiCall;
 import com.emmanuela.weatherapiproject.service.OpenWeatherService;
 import com.emmanuela.weatherapiproject.util.XmlConversion;
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Service;
 public class OpenWeatherServiceImpl implements OpenWeatherService {
     private final OpenWeatherApiCall openWeatherApiCall;
     private final XmlConversion xmlConversion;
-    private String apiCall;
-    private String convertToXml;
 
     @Override
-    public String apiCall(String city){
-        apiCall = openWeatherApiCall.openWeatherApi(city);
-        convertToXml = xmlConversion.convert(apiCall);
-        return convertToXml;
+    public String apiCall(String city) {
+        log.info("Running service implementation of api call....");
+        String apiCall = openWeatherApiCall.openWeatherApi(city);
+        return xmlConversion.convert(apiCall);
     }
 }

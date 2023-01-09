@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 
 public class XmlConversion {
     public String convert(String value) throws JSONException {
-            JSONObject json = new JSONObject(value);
-            String xml = XML.toString(json);
-            System.out.print(xml);
-    return xml;
+        log.info("Running xml conversion....");
+        JSONObject json = new JSONObject(value);
+        String xml = XML.toString(json);
+        log.info("xml conversion{}", xml);
+        return xml;
     }
 }

@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ErrorResponse {
-    private String message;
-    public String debugMessage;
+    private String apiErrorMessage;
+    private String debugMessage;
     private HttpStatus httpStatus;
     private LocalDateTime localDateTime = LocalDateTime.now();
 

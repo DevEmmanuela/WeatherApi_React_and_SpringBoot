@@ -1,6 +1,5 @@
 package com.emmanuela.weatherapiproject.controller;
 
-
 import com.emmanuela.weatherapiproject.service.OpenWeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

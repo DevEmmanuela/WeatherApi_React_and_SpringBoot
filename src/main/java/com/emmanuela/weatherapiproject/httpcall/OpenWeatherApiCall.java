@@ -1,6 +1,7 @@
 package com.emmanuela.weatherapiproject.httpcall;
 
 import com.emmanuela.weatherapiproject.exceptions.CityNotFoundException;
+import com.emmanuela.weatherapiproject.exceptions.GenericException;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -50,7 +51,8 @@ public class OpenWeatherApiCall {
                         return response.bodyToMono(String.class)
                                 .flatMap(errorBody -> Mono.error(new CityNotFoundException(errorBody)));
                     } else {
-                        return response.createException().flatMap(Mono::error);
+                        return response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new GenericException(errorBody)));
                     }
                 });
 
