@@ -1,8 +1,8 @@
-package com.emmanuela.watherapiproject.service.serviceimpl;
+package com.emmanuela.weatherapiproject.service.serviceimpl;
 
-import com.emmanuela.watherapiproject.exceptions.EndpointException;
-import com.emmanuela.watherapiproject.httpcall.OpenWeatherApiCall;
-import com.emmanuela.watherapiproject.service.OpenWeatherService;
+import com.emmanuela.weatherapiproject.exceptions.EndpointException;
+import com.emmanuela.weatherapiproject.httpcall.OpenWeatherApiCall;
+import com.emmanuela.weatherapiproject.service.OpenWeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

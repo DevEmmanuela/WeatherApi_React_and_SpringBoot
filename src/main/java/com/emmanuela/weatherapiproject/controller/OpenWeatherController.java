@@ -1,8 +1,8 @@
-package com.emmanuela.watherapiproject.controller;
+package com.emmanuela.weatherapiproject.controller;
 
 
-import com.emmanuela.watherapiproject.exceptions.EndpointException;
-import com.emmanuela.watherapiproject.service.OpenWeatherService;
+import com.emmanuela.weatherapiproject.exceptions.EndpointException;
+import com.emmanuela.weatherapiproject.service.OpenWeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

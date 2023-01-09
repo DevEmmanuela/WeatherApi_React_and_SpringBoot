@@ -1,4 +1,4 @@
-package com.emmanuela.watherapiproject.exceptions;
+package com.emmanuela.weatherapiproject.exceptions;
 
 public class EndpointException extends Exception{
     public EndpointException(String message) {

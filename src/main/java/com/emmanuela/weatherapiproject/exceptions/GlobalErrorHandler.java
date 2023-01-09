@@ -1,4 +1,4 @@
-package com.emmanuela.watherapiproject.exceptions;
+package com.emmanuela.weatherapiproject.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

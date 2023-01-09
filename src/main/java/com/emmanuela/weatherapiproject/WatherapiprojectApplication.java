@@ -1,4 +1,4 @@
-package com.emmanuela.watherapiproject;
+package com.emmanuela.weatherapiproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

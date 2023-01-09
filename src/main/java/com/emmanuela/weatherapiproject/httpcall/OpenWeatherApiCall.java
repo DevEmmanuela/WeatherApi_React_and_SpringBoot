@@ -1,4 +1,4 @@
-package com.emmanuela.watherapiproject.httpcall;
+package com.emmanuela.weatherapiproject.httpcall;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
