@@ -16,8 +16,8 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         errorResponse.setApiErrorMessage(ex.getMessage());
         errorResponse.setLocalDateTime(LocalDateTime.now());
         errorResponse.setDebugMessage("CITY NOT FOUND");
-        errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        errorResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(GenericException.class)
@@ -30,5 +30,24 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(LengthException.class)
+    public ResponseEntity<ErrorResponse> handleForLengthException(final LengthException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setApiErrorMessage(ex.getMessage());
+        errorResponse.setLocalDateTime(LocalDateTime.now());
+        errorResponse.setDebugMessage("STRING LENGTH MUST BE GREATER OR EQUAL TO ONE");
+        errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EndpointUnreachableException.class)
+    public ResponseEntity<ErrorResponse> handleForEndpointUnreachableException(final EndpointUnreachableException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setApiErrorMessage(ex.getMessage());
+        errorResponse.setLocalDateTime(LocalDateTime.now());
+        errorResponse.setDebugMessage("ENDPOINT COULD NOT BE REACHED");
+        errorResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
 
