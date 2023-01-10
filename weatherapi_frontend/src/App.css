@@ -23,7 +23,22 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+form{
+  margin-top: 2rem;
+}
+.section{
+  margin-top: 2rem;
+  border: 1px solid;
+  padding: 2rem;
+  background: #000;
+  color: #fff;
+}
 
+.heading{
+  margin-bottom: 0rem;
+  margin-top: 2rem;
+  padding: 0rem;
+}
 .App-link {
   color: #61dafb;
 }

@@ -7,28 +7,30 @@ function App () {
     const [city, setCity] = useState("");
 
 
-    const onSubmit = (e) => {
-      e.preventDefault();
-      setCity(e.target.value)
-
+    const handleChange = (e) => {
+      setCity(e.target.value);
   }
 
-  useEffect(() => {
-    fetch('/city/{city}')
-        .then(response => response.text())
-        .then(message => {
-          setMessage(message);
-        });
-  },[])
+  const handleSubmit = async (e) => {
+        e.preventDefault();
+      await fetch(`/city/${city}`)
+          .then(response => response.text())
+          .then(message => {
+              setMessage(message);
+              console.log(message);
+          });
+  }
+
   return (
       <div className="App">
-          <form>
-        <input type="text" placeholder="Enter City" value = {city}/>
-        <button onClick={onSubmit} type="submit">Find</button>
+          <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Enter City" value = {city} onChange={handleChange}/>
+        <button type="submit">Find</button>
 
           </form>
-        <p className="App-intro">
-           Hello
+          <h2 className="heading">Display Section</h2>
+        <p className="section">
+            {message}
         </p>
       </div>
   )
