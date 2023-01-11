@@ -12,42 +12,36 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CityNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleForCityNotFoundException(final CityNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setApiErrorMessage(ex.getMessage());
-        errorResponse.setLocalDateTime(LocalDateTime.now());
-        errorResponse.setDebugMessage("CITY NOT FOUND");
-        errorResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .apiErrorMessage(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .debugMessage("CITY NOT FOUND")
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(GenericException.class)
     public ResponseEntity<ErrorResponse> handleForGenericException(final GenericException ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setApiErrorMessage(ex.getMessage());
-        errorResponse.setLocalDateTime(LocalDateTime.now());
-        errorResponse.setDebugMessage("INTERNAL SERVER ERROR");
-        errorResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .apiErrorMessage(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .debugMessage("INTERNAL SERVER ERROR")
+                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(LengthException.class)
     public ResponseEntity<ErrorResponse> handleForLengthException(final LengthException ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setApiErrorMessage(ex.getMessage());
-        errorResponse.setLocalDateTime(LocalDateTime.now());
-        errorResponse.setDebugMessage("STRING LENGTH MUST BE GREATER OR EQUAL TO ONE");
-        errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST);
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .apiErrorMessage(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .debugMessage("STRING LENGTH MUST BE GREATER OR EQUAL TO ONE")
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(EndpointUnreachableException.class)
-    public ResponseEntity<ErrorResponse> handleForEndpointUnreachableException(final EndpointUnreachableException ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setApiErrorMessage(ex.getMessage());
-        errorResponse.setLocalDateTime(LocalDateTime.now());
-        errorResponse.setDebugMessage("ENDPOINT COULD NOT BE REACHED");
-        errorResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
 

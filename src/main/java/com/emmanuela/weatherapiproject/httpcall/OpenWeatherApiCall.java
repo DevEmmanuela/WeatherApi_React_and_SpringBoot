@@ -29,7 +29,6 @@ public class OpenWeatherApiCall {
         log.info("Running webclient ....");
 
         String formattedUrl = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, openWeatherApiKey);
-//        String modifiedUrl = formattedUrl;
 
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 15000)

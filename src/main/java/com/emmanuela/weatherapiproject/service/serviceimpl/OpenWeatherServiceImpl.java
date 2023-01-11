@@ -1,16 +1,13 @@
 package com.emmanuela.weatherapiproject.service.serviceimpl;
 
-import com.emmanuela.weatherapiproject.exceptions.CityNotFoundException;
-import com.emmanuela.weatherapiproject.exceptions.EndpointUnreachableException;
 import com.emmanuela.weatherapiproject.exceptions.LengthException;
 import com.emmanuela.weatherapiproject.httpcall.OpenWeatherApiCall;
 import com.emmanuela.weatherapiproject.service.OpenWeatherService;
 import com.emmanuela.weatherapiproject.util.Util;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -20,7 +17,7 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     private final Util util;
 
     @Override
-    public String apiCall(String city) {
+    public String apiCall(String city) throws JsonProcessingException {
         log.info("Running service implementation of api call....");
 
         String lengthStatus = util.lengthValidation(city);
@@ -30,6 +27,8 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         }
         String apiCall = openWeatherApiCall.openWeatherApi(city);
 
-        return util.convertToXml(apiCall);
+        String xmlValue = util.convertToXml(apiCall);
+        log.info("xml xmlValue {}", xmlValue);
+        return xmlValue;
     }
 }
