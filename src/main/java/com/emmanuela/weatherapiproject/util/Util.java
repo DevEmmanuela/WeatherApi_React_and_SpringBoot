@@ -60,13 +60,13 @@ public class Util {
     }
 
 
-    public String lengthValidation(String city){
+    public Boolean lengthValidation(String city){
         log.info("Running length validation");
-        String status = "TRUE";
+//        String status = "TRUE";
         if(city.trim().isEmpty()){
-            status = "FALSE";
+            return false;
         }
-        return status;
+        return true;
     }
 
 }

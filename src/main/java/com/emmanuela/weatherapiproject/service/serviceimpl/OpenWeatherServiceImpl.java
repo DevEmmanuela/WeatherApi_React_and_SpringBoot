@@ -20,11 +20,13 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     public String apiCall(String city) throws JsonProcessingException {
         log.info("Running service implementation of api call....");
 
-        String lengthStatus = util.lengthValidation(city);
-        if(lengthStatus.equalsIgnoreCase("FALSE")){
+        log.info("city length validation...");
+        Boolean lengthStatus = util.lengthValidation(city);
+        if(!lengthStatus){
             log.info("String length is less than one");
             throw new LengthException("STRING LENGTH MUST BE GREATER OR EQUAL TO ONE");
         }
+
         String apiCall = openWeatherApiCall.openWeatherApi(city);
 
         String xmlValue = util.convertToXml(apiCall);
